@@ -1,13 +1,35 @@
 {
-  "Aries": "Suerte de Aries",
-  "Geminis": "SUERTE DE GEMINIS CAMBIADA",
-  "Cancer": "Suerte de Cancer",
-  "Leo": "SUERTE DE LEO POSITIVA",
-  "Virgo": "Suerte de Virgo",
-  "Libra": "UNA LIBRA DE ARROZ",
-  "Escorpio": "Suerte de Escorpio",
-  "Sagitario": "Suerte de Sagitario",
-  "Capricornio": "Suerte de Capricornio",
-  "Acuario": "Suerte de Acuario",
-  "Piscis": "Suerte de Piscis"
+  "Aries": {
+    "general": "Suerte de Aries"
+  },
+  "Geminis": {
+    "general": "SUERTE DE GEMINIS CAMBIADA"
+  },
+  "Cancer": {
+    "general": "Suerte de Cancer"
+  },
+  "Leo": {
+    "general": "SUERTE DE LEO POSITIVA"
+  },
+  "Virgo": {
+    "general": "Suerte de Virgo"
+  },
+  "Libra": {
+    "general": "UNA LIBRA DE ARROZ"
+  },
+  "Escorpio": {
+    "general": "Suerte de Escorpio"
+  },
+  "Sagitario": {
+    "general": "Suerte de Sagitario"
+  },
+  "Capricornio": {
+    "general": "Suerte de Capricornio"
+  },
+  "Acuario": {
+    "general": "Suerte de Acuario"
+  },
+  "Piscis": {
+    "general": "Suerte de Piscis"
+  }
 }

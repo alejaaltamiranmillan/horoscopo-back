@@ -45,7 +45,7 @@ const login = async (req, res) => {
 const changePassword = async (req, res) => {
     const { username, currentPassword, newPassword } = req.body;
     let filePath;
-    
+
     // Determina si es user o admin y establece la ruta correcta
     if (username === 'user') {
         filePath = path.join(__dirname, '../../db/user.json');
@@ -78,33 +78,50 @@ const changePassword = async (req, res) => {
     }
 };
 
+// Obtener todos los signos
 const getAllSignos = async (req, res) => {
     const signo = await fs.readFile(path.join(__dirname, '../../db/signos.json'));
     const signosJson = JSON.parse(signo);
     res.json(signosJson);
 };
 
+// Obtener un signo específico
 const getOneSigno = async (req, res) => {
     const oneSigno = req.params.signo;
     const perfil = req.query.perfil || 'general'; // Nuevo parámetro de consulta para el perfil
     const allSignos = await fs.readFile(path.join(__dirname, '../../db/signos.json'));
     const objSignos = JSON.parse(allSignos);
-    const result = objSignos[oneSigno] && objSignos[oneSigno][perfil] 
-        ? objSignos[oneSigno][perfil] 
-        : "Información no disponible para este perfil";
-    res.json(result);
+    
+    if (!objSignos[oneSigno]) {
+        return res.status(404).json({ message: "Signo no encontrado" });
+    }
+
+    // Solo los usuarios admin pueden editar, los usuarios normales solo ven
+    if (req.user && req.user.role === 'admin') {
+        const result = objSignos[oneSigno][perfil] || "Información no disponible para este perfil";
+        res.json(result);
+    } else {
+        // Si es usuario normal, solo devuelvo el mensaje general del signo
+        res.json({ message: objSignos[oneSigno] });
+    }
 };
 
+// Actualizar un signo
 const updateSigno = async (req, res) => {
+    // Solo los administradores pueden actualizar signos
+    if (!req.user || req.user.role !== 'admin') {
+        return res.status(403).json({ message: "No tienes permisos para editar signos." });
+    }
+
     const signoEditar = req.params.signoEditar;
     const { textoEditar, perfil } = req.body;
     const allSignos = await fs.readFile(path.join(__dirname, '../../db/signos.json'));
     const objSignos = JSON.parse(allSignos);
-    
+
     if (!objSignos[signoEditar]) {
         objSignos[signoEditar] = {};
     }
-    
+
     const objUpdate = {
         ...objSignos,
         [signoEditar]: {
@@ -112,8 +129,8 @@ const updateSigno = async (req, res) => {
             [perfil]: textoEditar
         }
     };
-    
-    await fs.writeFile(path.join(__dirname, '../../db/signos.json'), JSON.stringify(objUpdate, null, 2), {encoding: 'utf-8'});
+
+    await fs.writeFile(path.join(__dirname, '../../db/signos.json'), JSON.stringify(objUpdate, null, 2), { encoding: 'utf-8' });
     res.json({
         message: "Updated"
     });

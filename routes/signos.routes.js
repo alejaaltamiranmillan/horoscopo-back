@@ -18,7 +18,8 @@ const errorHandler = (handler) => {
 router
     .get('/', errorHandler(signoController.getAllSignos))
     .get('/:signo', errorHandler(signoController.getOneSigno))
-    .patch('/:signoEditar', errorHandler(signoController.updateSigno))
+    // Cambia 'signoEditar' a 'signo' para que coincida con el nombre de la ruta
+    .patch('/:signo', errorHandler(signoController.updateSigno))
     .post('/login', errorHandler(login))
     .post('/change-password', errorHandler(changePassword));
 
