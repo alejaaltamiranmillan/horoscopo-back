@@ -8,6 +8,12 @@ const app = express();
 app.use(urlencoded({extended: true}))
 app.use(json())
 
+const corsOptions = {
+    origin: '*',
+    methods: 'GET, HEAD, PATCH, POST, PUT, DELETE',
+    allowedHeaders: ['Content-Type, Authorization']
+};
+
 app.get('/', (req, res)=>{
     res.send("hola mundo")
 })
