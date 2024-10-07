@@ -8,6 +8,10 @@ const app = express();
 app.use(urlencoded({extended: true}))
 app.use(json())
 
+app.get('/', (req, res)=>{
+    res.send("hola mundo")
+})
+
 app.use(cors())
 app.use('/api', router);
 
