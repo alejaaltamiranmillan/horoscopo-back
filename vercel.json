@@ -22,5 +22,8 @@
       "src": "/adminHome",
       "dest": "/index.html"
     }
+  ],
+  "rewrites": [
+    { "source": "/(.*)", "destination": "/" }
   ]
 }
